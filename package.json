@@ -1,0 +1,14 @@
+{
+  "name": "jc-social-media-growth-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static portfolio website for Jherson Cabiling, Social Media Growth Strategist.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}
