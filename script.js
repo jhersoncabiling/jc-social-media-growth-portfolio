@@ -130,22 +130,20 @@ if (form && formStatus) {
   });
 
   form.addEventListener("submit", (event) => {
+  const inputs = Object.keys(fields).map((id) => document.getElementById(id));
+  const isValid = inputs.map(validateField).every(Boolean);
+
+  if (!isValid) {
     event.preventDefault();
-    const inputs = Object.keys(fields).map((id) => document.getElementById(id));
-    const isValid = inputs.map(validateField).every(Boolean);
+    formStatus.classList.remove("visible");
+    inputs.find((input) => input.getAttribute("aria-invalid") === "true")?.focus();
+    return;
+  }
 
-    if (!isValid) {
-      formStatus.classList.remove("visible");
-      inputs.find((input) => input.getAttribute("aria-invalid") === "true")?.focus();
-      return;
-    }
-
-    formStatus.textContent =
-      "Your details are valid. This Phase 1 form is a preview only and has not sent data anywhere. Backend or email integration will be added after approval.";
-    formStatus.classList.add("visible");
-    form.reset();
-    inputs.forEach((input) => input.removeAttribute("aria-invalid"));
-  });
+  // Allow Formspree to handle the form submission
+  formStatus.textContent = "Sending message...";
+  formStatus.classList.add("visible");
+});
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
